@@ -1,0 +1,27 @@
+{
+  "name": "@fordi-org/roman-numerals",
+  "version": "1.0.0",
+  "description": "Parse and encode roman numerals with as much support as possible",
+  "keywords": [],
+  "author": "Bryan Elliott <fordiman@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@fordi-org/node-html-reporter": "^0.1.0",
+    "@types/node": "^24.1.0",
+    "ts-node": "^10.9.2",
+    "tsdoc-markdown": "^1.3.0",
+    "typescript": "^5.8.3"
+  },
+  "type": "module",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "build:numerals": "node --loader ts-node/esm --no-warnings tools/calculateNumerals.ts",
+    "build:typescript": "tsc index.ts --outDir ./dist/",
+    "build:doc": "tsdoc --src=index.ts --dest=API.md --types --noemoji",
+    "build": "npm run build:numerals && npm run build:doc && npm run build:typescript",
+    "postinstall": "npm run build:numerals && npm build:doc",
+    "prepublish": "npm run build",
+    "test": "npm run build && node --loader ts-node/esm --no-warnings --test",
+    "coverage": "npm run build && ntc --loader ts-node/esm --no-warnings"
+  }
+}
